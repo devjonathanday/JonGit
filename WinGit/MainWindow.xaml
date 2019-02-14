@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinGit"
         mc:Ignorable="d"
-        Title="WinGit" Height="450" Width="450">
+        Title="WinGit" Height="450" Width="450" Closing="CleanUpGit">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,11 +13,14 @@
                 <GradientStop Color="#FF2B2B2B" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        
-        
-        <Button Content="Commit" HorizontalAlignment="Left" Margin="357,189,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="10,189,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="342"/>
-        <Button Content="Run Git Bash" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="StartBash" Foreground="White">
+
+
+        <Button Content="Commit" HorizontalAlignment="Left" Margin="357,264,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="10,264,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="342"/>
+        <TextBox x:Name="bashDirTextBox" HorizontalAlignment="Left" Height="22" Margin="130,9,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="302"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="git-cmd.exe directory:" VerticalAlignment="Top" Foreground="White"/>
+        <TextBlock x:Name="OutputText" HorizontalAlignment="Left" Height="71" Margin="10,168,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="407" Foreground="White"/>
+        <Button Content="Status" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Width="100" Click="GitStatus" Foreground="White">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -27,12 +30,30 @@
             <Button.Style>
                 <Style>
                     <Style.Triggers>
-                        <Trigger Property="Button.IsMouseOver" Value="True">
-                            <Setter Property="Button.Background" Value="Red" />
+                        <Trigger Property="UIElement.IsMouseOver" Value="True">
+                            <Setter Property="Control.Background" Value="Red" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
+        <Button Content="Change Directory" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="100" Click="ChangeDir" Foreground="White">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Style>
+                <Style>
+                    <Style.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="True">
+                            <Setter Property="Control.Background" Value="Red" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <TextBox x:Name="NewDirectory" HorizontalAlignment="Left" Height="20" Margin="115,36,0,0" TextWrapping="Wrap" Text="New Directory..." VerticalAlignment="Top" Width="317"/>
     </Grid>
 </Window>
