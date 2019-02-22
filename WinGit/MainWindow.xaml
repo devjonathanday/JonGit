@@ -5,55 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinGit"
         mc:Ignorable="d"
-        Title="WinGit" Height="450" Width="450" Closing="CleanUpGit">
-    <Grid>
+        Title="JonGit" Height="640" Width="553">
+    <Grid Margin="0,0,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF727272" Offset="0"/>
                 <GradientStop Color="#FF2B2B2B" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-
-
-        <Button Content="Commit" HorizontalAlignment="Left" Margin="357,264,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="10,264,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="342"/>
-        <TextBox x:Name="bashDirTextBox" HorizontalAlignment="Left" Height="22" Margin="130,9,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="302"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="git-cmd.exe directory:" VerticalAlignment="Top" Foreground="White"/>
-        <TextBlock x:Name="OutputText" HorizontalAlignment="Left" Height="71" Margin="10,168,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="407" Foreground="White"/>
-        <Button Content="Status" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Width="100" Click="GitStatus" Foreground="White">
+        <Button Content="Commit" HorizontalAlignment="Left" Margin="438,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
                     <GradientStop Color="#FF8B8B8B" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
-            <Button.Style>
-                <Style>
-                    <Style.Triggers>
-                        <Trigger Property="UIElement.IsMouseOver" Value="True">
-                            <Setter Property="Control.Background" Value="Red" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
         </Button>
-        <Button Content="Change Directory" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="100" Click="ChangeDir" Foreground="White">
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="10,431,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423"/>
+        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="22" Margin="125,9,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="402"/>
+        <TextBlock Margin="10,12,0,547" TextWrapping="Wrap" Text="Repository location:" VerticalAlignment="Center" Foreground="White" Height="20" TextAlignment="Center" HorizontalAlignment="Left" Width="110"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,90,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154"/>
+        <Button Content="Refresh" HorizontalAlignment="Left" Margin="333,90,0,0" VerticalAlignment="Top" Width="100" Click="GitStatusButton" Foreground="White">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
                     <GradientStop Color="#FF8B8B8B" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
-            <Button.Style>
-                <Style>
-                    <Style.Triggers>
-                        <Trigger Property="UIElement.IsMouseOver" Value="True">
-                            <Setter Property="Control.Background" Value="Red" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
         </Button>
-        <TextBox x:Name="NewDirectory" HorizontalAlignment="Left" Height="20" Margin="115,36,0,0" TextWrapping="Wrap" Text="New Directory..." VerticalAlignment="Top" Width="317"/>
+        <ListBox x:Name="OutputBlock" HorizontalAlignment="Left" Height="261" Margin="10,117,0,0" VerticalAlignment="Top" Width="423">
+            <ListBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC5C5C5" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </ListBox.Background>
+        </ListBox>
+        <CheckBox x:Name="IgnoredFilesCheckBox" Content="Show ignored files" HorizontalAlignment="Left" Margin="10,410,0,0" VerticalAlignment="Top" Width="279" Foreground="White" Checked="IgnoredFilesCheckBox_Checked" Unchecked="IgnoredFilesCheckBox_Unchecked"/>
+
+        <Button Content="Push" HorizontalAlignment="Left" Margin="438,458,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <ScrollViewer x:Name="ReadoutScrollViewer" HorizontalAlignment="Left" Height="104" Margin="10,496,0,0" VerticalAlignment="Top" Width="517">
+            <TextBlock x:Name="ReadoutBlock" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="508" Height="Auto" Text="Ready." ScrollViewer.CanContentScroll="True"/>
+        </ScrollViewer>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="104" Margin="10,496,0,0" VerticalAlignment="Top" Width="517"/>
+        <Button Content="Add File" HorizontalAlignment="Left" Margin="438,117,0,0" VerticalAlignment="Top" Width="89" Click="AddFileButton" Foreground="White">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Reset File" HorizontalAlignment="Left" Margin="438,329,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveFileButton">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Add All" HorizontalAlignment="Left" Margin="438,144,0,0" VerticalAlignment="Top" Width="89" Click="AddAllButton" Foreground="White">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Reset All" HorizontalAlignment="Left" Margin="438,356,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveAllButton">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
     </Grid>
 </Window>
