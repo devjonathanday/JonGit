@@ -13,7 +13,7 @@
                 <GradientStop Color="#FF2B2B2B" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button Content="Commit" HorizontalAlignment="Left" Margin="438,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White">
+        <Button Content="Commit" HorizontalAlignment="Left" Margin="438,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" Click="CommitButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -21,9 +21,9 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="10,431,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423"/>
-        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="22" Margin="125,9,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="402"/>
-        <TextBlock Margin="10,12,0,547" TextWrapping="Wrap" Text="Repository location:" VerticalAlignment="Center" Foreground="White" Height="20" TextAlignment="Center" HorizontalAlignment="Left" Width="110"/>
+        <TextBox x:Name="CommitMessageText" HorizontalAlignment="Left" Height="22" Margin="10,431,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423"/>
+        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="22" Margin="125,9,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="402" KeyDown="OnKeyDownHandler"/>
+        <TextBlock Margin="10,12,0,578" TextWrapping="Wrap" Text="Repository location:" VerticalAlignment="Center" Foreground="White" Height="20" TextAlignment="Center" HorizontalAlignment="Left" Width="110"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,90,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154"/>
         <Button Content="Refresh" HorizontalAlignment="Left" Margin="333,90,0,0" VerticalAlignment="Top" Width="100" Click="GitStatusButton" Foreground="White">
             <Button.Background>
@@ -36,7 +36,7 @@
         <ListBox x:Name="OutputBlock" HorizontalAlignment="Left" Height="261" Margin="10,117,0,0" VerticalAlignment="Top" Width="423">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFC5C5C5" Offset="0"/>
+                    <GradientStop Color="#FFB6B6B6" Offset="0"/>
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </ListBox.Background>

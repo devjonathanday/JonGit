@@ -11,15 +11,15 @@ namespace WinGit
         public ListBox fileList;
         public ScrollViewer scrollBar;
         public TextBlock readOut;
-        bool showIgnored;
+        public bool showIgnored;
 
         public GitManager() { } //Default constructor, unused
-        public GitManager(ref ListBox _fileList, ref ScrollViewer _scrollBar, ref TextBlock _readOut, ref bool _showIgnored)
+        public GitManager(ref ListBox _fileList, ref ScrollViewer _scrollBar, ref TextBlock _readOut)
         {
             fileList = _fileList;
             scrollBar = _scrollBar;
             readOut = _readOut;
-            showIgnored = _showIgnored;
+            showIgnored = false;
         }
 
         public void InputArgs(string newArgs, string repoDir)
@@ -52,21 +52,33 @@ namespace WinGit
             //"--porcelain" adds extra blank line at end, hence arraySize-1
             {
                 ListBoxItem newItem = new ListBoxItem(); //Initialize a new ListBoxItem
-                newItem.Content = fileNames[i].Substring(3); //Set the ListBoxItem equal to the filename only
-                string trackInd = fileNames[i].Substring(0, 3); //Get first 3 chars (tracking index)
-                //Untracked, modified, deleted, renamed, copied, unmerged
-                if (trackInd.Contains("?") ||
-                    trackInd.Contains("M") ||
-                    trackInd.Contains("D") ||
-                    trackInd.Contains("R") ||
-                    trackInd.Contains("C") ||
-                    trackInd.Contains("U")) newItem.Foreground = Brushes.DarkRed;
-                else if (fileNames[i].Substring(0, 3).Contains("A")) newItem.Foreground = Brushes.Green; //Added
-                else if (fileNames[i].Substring(0, 3).Contains("!")) newItem.Foreground = Brushes.LightGray; //Ignored
-                else newItem.Foreground = Brushes.White;
+                string data = fileNames[i].Substring(3);
+                data = data.Replace("\"", string.Empty);
+                newItem.Content = data; //Set the ListBoxItem equal to the filename only
+                string trackInd = fileNames[i].Substring(0, 2); //Get first 3 chars (tracking index)
+                //Untracked, added, modified, deleted, renamed, copied, unmerged (?AMDRCU)
+                if (trackInd == "??" ||
+                    trackInd == " M" ||
+                    trackInd == " D" ||
+                    trackInd == " R" ||
+                    trackInd == " C" ||
+                    trackInd == " U") newItem.Foreground = Brushes.DarkRed;
+                else if (trackInd == "AA" ||
+                    trackInd == "MM" ||
+                    trackInd == "DD" ||
+                    trackInd == "RR" ||
+                    trackInd == "CC" ||
+                    trackInd == "UU" ||
+                    trackInd == "A " ||
+                    trackInd == "M " ||
+                    trackInd == "D " ||
+                    trackInd == "R " ||
+                    trackInd == "C " ||
+                    trackInd == "U ") newItem.Foreground = Brushes.Green;
+                else if (trackInd == "!!") newItem.Foreground = Brushes.DarkGray; //Ignored
+                else newItem.Foreground = Brushes.Black;
                 fileList.Items.Add(newItem); //The first 3 characters are the tracking indicator
             }
-            //Print("Status refreshed.");
         }
 
         public void PrintMessage(string message)
@@ -76,60 +88,63 @@ namespace WinGit
         }
 
         //Git Functions
-        private void GitStatus()
+        public void GitStatus(string repoDir)
         {
-            if (!showIgnored)
-                InputArgs("git status --porcelain");
-            else InputArgs("git status --porcelain --ignored");
+            if (!showIgnored) InputArgs("git status --porcelain", repoDir);
+            else InputArgs("git status --porcelain --ignored", repoDir);
         }
 
-        private void AddFileToCommit()
+        public void AddFileToCommit(string repoDir)
         {
             string itemContent = "";
             try
             {
-                itemContent = ((ListBoxItem)OutputBlock.SelectedItem).Content.ToString();
-                InputArgs(@"git add """ + itemContent + @"""");
-                Print("\"" + itemContent + "\" staged for commit.");
+                itemContent = ((ListBoxItem)fileList.SelectedItem).Content.ToString();
+                InputArgs(@"git add """ + itemContent + @"""", repoDir);
+                PrintMessage("\"" + itemContent + "\" staged for commit.");
             }
             catch (NullReferenceException e)
             {
-                Print("No file selected.");
+                PrintMessage("No file selected.");
             }
-            GitStatus();
+            GitStatus(repoDir);
         }
 
-        private void AddAllFiles()
+        public void AddAllFiles(string repoDir)
         {
-            InputArgs("git add .");
-            GitStatus();
+            InputArgs("git add .", repoDir);
+            GitStatus(repoDir);
         }
 
-        private void RemoveFileFromCommit()
+        public void RemoveFileFromCommit(string repoDir)
         {
             string itemContent = "";
             try
             {
-                itemContent = ((ListBoxItem)OutputBlock.SelectedItem).Content.ToString();
-                InputArgs(@"git reset HEAD -- """ + itemContent + @"""");
-                Print("\"" + itemContent + "\" removed from staging.");
+                itemContent = ((ListBoxItem)fileList.SelectedItem).Content.ToString();
+                InputArgs(@"git reset HEAD -- """ + itemContent + @"""", repoDir);
+                PrintMessage("\"" + itemContent + "\" removed from staging.");
             }
             catch (NullReferenceException e)
             {
-                Print("No file selected.");
+                PrintMessage("No file selected.");
             }
-            GitStatus();
+            GitStatus(repoDir);
         }
 
-        private void RemoveAllFiles()
+        public void RemoveAllFiles(string repoDir)
         {
-            InputArgs("git reset HEAD -- .");
-            GitStatus();
+            InputArgs("git reset HEAD -- .", repoDir);
+            GitStatus(repoDir);
         }
 
-        private void ClearFiles()
+        public void GitCommit(string commitMessage, string repoDir)
         {
-            GitStatus();
+            if(commitMessage.Contains("\""))
+            {
+                PrintMessage("Error: Invalid character(s) in commit message.");
+            }
+            else InputArgs(@"git commit -m """ + commitMessage + @"""", repoDir);
         }
     }
 }
