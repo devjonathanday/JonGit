@@ -68,8 +68,7 @@ namespace WinGit
 
         public void GitInit(string repoDir)
         {
-            InputArgs("git init", repoDir);
-            PrintMessage("Initialized git repository at the specified directory.");
+            PrintMessage(InputArgs("git init", repoDir));
         }
 
         public void GitStatus(string repoDir)
@@ -185,8 +184,8 @@ namespace WinGit
 
         public void GitPush(string repoDir)
         {
-                InputArgs("git push -u origin master", repoDir);
-                PrintMessage("Pushed to git repository successfully.");
+                PrintMessage(InputArgs("git push -u origin master", repoDir));
+                //PrintMessage("Pushed to git repository successfully.");
         }
 
         public void RemoteAddOrigin(string link, string repoDir)
