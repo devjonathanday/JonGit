@@ -25,18 +25,15 @@ namespace WinGit
     {
         public Process commandWindow = new Process();
         public GitManager GM = new GitManager();
-        public FileStream reposFS = File.Open(Directory.GetCurrentDirectory() + "\\recentRepos.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); //Creates the text file to be used
-        
-        public string[] recentRepos;
+        string recentReposFileName = (Directory.GetCurrentDirectory() + "\\recentRepos.txt"); //Filename for list of recent repos.
 
         public MainWindow()
         {
             InitializeComponent();
             //ResizeMode = ResizeMode.NoResize;
             GM = new GitManager(ref OutputBlock, ref ReadoutScrollViewer, ref ReadoutBlock);
-            reposFS.Close();
-            recentRepos = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\recentRepos.txt"); //Reads the lines from the text file
-            for(int i = 0; i < recentRepos.Length; i++) RecentRepoDirsList.Items.Add(recentRepos[i]);
+            if(!File.Exists(recentReposFileName)) File.Create(recentReposFileName); //Creates the recent repo text file if it doesn't exist.
+            UpdateRecentRepos();
         }
 
         //WPF Buttons
@@ -55,11 +52,21 @@ namespace WinGit
         private void GitPushButton(object sender, RoutedEventArgs e)
         {
             GM.GitPush(repoDirText.Text);
-            if (!RecentRepoDirsList.Items.Contains(repoDirText.Text))
-            {
-                RecentRepoDirsList.Items.Insert(0, repoDirText.Text);
-                while (RecentRepoDirsList.Items.Count > 3) RecentRepoDirsList.Items.RemoveAt(RecentRepoDirsList.Items.Count - 1);
-            }
+            //string[] repoList = File.ReadAllLines(recentReposFileName); //Read repo names into an array
+            //string[] newRepoList = new string[5]; //Create new array 1 element larger
+            //newRepoList[0] = repoDirText.Text; //Set the first element of the new array
+            //for(int i = 1; i < Math.Min(5, repoList.Length); i++) //Iterate through the list, or just go to 5 if it is too large
+            //{
+            //    newRepoList[i] = repoList[]
+            //}
+
+            //if (!RecentRepoDirsList.Items.Contains(repoDirText.Text))
+            //{
+            //    //RecentRepoDirsList.Items.Insert(0, repoDirText.Text);
+            //    //while (RecentRepoDirsList.Items.Count > 3) RecentRepoDirsList.Items.RemoveAt(RecentRepoDirsList.Items.Count - 1);
+            //    //FileStream recentRepos = File.Open(recentReposFileName, FileMode.Open);
+                
+            //}
         }
         private void BrowseForRepoDir(object sender, RoutedEventArgs e)
         {
@@ -71,5 +78,10 @@ namespace WinGit
         private void SetUpstreamCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.setUpstream = false; }
         private void SetUpstreamCheckBox_Checked(object sender, RoutedEventArgs e) { GM.setUpstream = false; }
         private void UpdateRepoDir(object sender, System.Windows.Controls.SelectionChangedEventArgs e) { repoDirText.Text = RecentRepoDirsList.SelectedItem.ToString(); }
+        public void UpdateRecentRepos() //Iterates through text file and updates ComboBox with recently pushed repos
+        {
+            string[] recentRepos = File.ReadAllLines(recentReposFileName); //Read the repo names and put them into a string array.
+            for (int i = 0; i < recentRepos.Length; i++) RecentRepoDirsList.Items.Add(recentRepos[i]); //Add the repo names into the combo box.
+        }
     }
 }
