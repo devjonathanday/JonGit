@@ -13,7 +13,7 @@
                 <GradientStop Color="#FF2B2B2B" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button Content="Commit" HorizontalAlignment="Left" Margin="438,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" Click="CommitButton">
+        <Button Content="Commit" HorizontalAlignment="Left" Margin="438,404,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" Click="CommitButton" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -21,11 +21,11 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="CommitMessageText" HorizontalAlignment="Left" Height="22" Margin="10,431,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423"/>
-        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="22" Margin="125,9,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="402" KeyDown="OnKeyDownHandler"/>
-        <TextBlock Margin="10,12,0,578" TextWrapping="Wrap" Text="Repository location:" VerticalAlignment="Center" Foreground="White" Height="20" TextAlignment="Center" HorizontalAlignment="Left" Width="110"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,90,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154"/>
-        <Button Content="Refresh" HorizontalAlignment="Left" Margin="333,90,0,0" VerticalAlignment="Top" Width="100" Click="GitStatusButton" Foreground="White">
+        <TextBox x:Name="CommitMessageText" HorizontalAlignment="Left" Height="22" Margin="10,404,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423" FontFamily="Lucida Console"/>
+        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="23" Margin="99,15,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="334" KeyDown="OnKeyDownHandler" FontFamily="Lucida Console"/>
+        <TextBlock Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="51" HorizontalAlignment="Left" Width="84" FontFamily="Lucida Console"><Run/><LineBreak/><Run Text="Repository location:"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,90,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154" FontFamily="Lucida Console"/>
+        <Button Content="Refresh" HorizontalAlignment="Left" Margin="333,90,0,0" VerticalAlignment="Top" Width="100" Click="GitStatusButton" Foreground="White" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -33,7 +33,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ListBox x:Name="OutputBlock" HorizontalAlignment="Left" Height="261" Margin="10,117,0,0" VerticalAlignment="Top" Width="423">
+        <ListBox x:Name="OutputBlock" HorizontalAlignment="Left" Height="261" Margin="10,117,0,0" VerticalAlignment="Top" Width="423" FontFamily="Lucida Console">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFB6B6B6" Offset="0"/>
@@ -41,9 +41,9 @@
                 </LinearGradientBrush>
             </ListBox.Background>
         </ListBox>
-        <CheckBox x:Name="IgnoredFilesCheckBox" Content="Show ignored files" HorizontalAlignment="Left" Margin="10,410,0,0" VerticalAlignment="Top" Width="279" Foreground="White" Checked="IgnoredFilesCheckBox_Checked" Unchecked="IgnoredFilesCheckBox_Unchecked"/>
+        <CheckBox x:Name="IgnoredFilesCheckBox" Content="Show ignored files" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="279" Foreground="White" Checked="IgnoredFilesCheckBox_Checked" Unchecked="IgnoredFilesCheckBox_Unchecked" FontFamily="Lucida Console"/>
 
-        <Button Content="Push" HorizontalAlignment="Left" Margin="438,458,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White">
+        <Button Content="Push" HorizontalAlignment="Left" Margin="438,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitPushButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -51,11 +51,11 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ScrollViewer x:Name="ReadoutScrollViewer" HorizontalAlignment="Left" Height="104" Margin="10,496,0,0" VerticalAlignment="Top" Width="517">
-            <TextBlock x:Name="ReadoutBlock" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="508" Height="Auto" Text="Ready." ScrollViewer.CanContentScroll="True"/>
+        <ScrollViewer x:Name="ReadoutScrollViewer" HorizontalAlignment="Left" Height="69" Margin="10,531,0,0" VerticalAlignment="Top" Width="517">
+            <TextBlock x:Name="ReadoutBlock" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="508" Height="Auto" Text="Ready." ScrollViewer.CanContentScroll="True" FontFamily="Lucida Console"/>
         </ScrollViewer>
-        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="104" Margin="10,496,0,0" VerticalAlignment="Top" Width="517"/>
-        <Button Content="Add File" HorizontalAlignment="Left" Margin="438,117,0,0" VerticalAlignment="Top" Width="89" Click="AddFileButton" Foreground="White">
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="10,531,0,0" VerticalAlignment="Top" Width="517"/>
+        <Button Content="Add File" HorizontalAlignment="Left" Margin="438,117,0,0" VerticalAlignment="Top" Width="89" Click="AddFileButton" Foreground="White" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -63,7 +63,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="Reset File" HorizontalAlignment="Left" Margin="438,329,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveFileButton">
+        <Button Content="Reset File" HorizontalAlignment="Left" Margin="438,329,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveFileButton" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -71,7 +71,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="Add All" HorizontalAlignment="Left" Margin="438,144,0,0" VerticalAlignment="Top" Width="89" Click="AddAllButton" Foreground="White">
+        <Button Content="Add All" HorizontalAlignment="Left" Margin="438,144,0,0" VerticalAlignment="Top" Width="89" Click="AddAllButton" Foreground="White" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -79,7 +79,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="Reset All" HorizontalAlignment="Left" Margin="438,356,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveAllButton">
+        <Button Content="Reset All" HorizontalAlignment="Left" Margin="438,356,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveAllButton" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -87,6 +87,40 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <Button Content="Browse..." HorizontalAlignment="Left" Margin="438,16,0,0" VerticalAlignment="Top" Width="89" Foreground="White" Click="RemoveAllButton" Height="22" FontFamily="Lucida Console">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Manual Entry" HorizontalAlignment="Left" Margin="10,508,0,0" VerticalAlignment="Top" Width="107" Click="OpenCMDButton" Foreground="White" FontFamily="Lucida Console">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Initialize Repository" HorizontalAlignment="Left" Margin="99,43,0,0" VerticalAlignment="Top" Width="170" Click="GitInitButton" Foreground="White" FontFamily="Lucida Console">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBox x:Name="WebOriginTextBox" HorizontalAlignment="Left" Height="22" Margin="242,461,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Console"/>
+        <Button Content="Add Origin" HorizontalAlignment="Left" Margin="10,461,0,0" VerticalAlignment="Top" Width="84" Height="22" Foreground="White" FontFamily="Lucida Console" Click="AddOriginButton">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBlock HorizontalAlignment="Left" Margin="99,466,0,0" TextWrapping="Wrap" Text="https://github.com/" VerticalAlignment="Top" Foreground="White" Width="141" FontFamily="Lucida Console"/>
 
     </Grid>
 </Window>

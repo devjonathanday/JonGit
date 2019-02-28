@@ -28,7 +28,7 @@ namespace WinGit
         public MainWindow()
         {
             InitializeComponent();
-            ResizeMode = ResizeMode.NoResize;
+            //ResizeMode = ResizeMode.NoResize;
             repoDirText.Text = System.IO.Directory.GetCurrentDirectory();
             GM = new GitManager(ref OutputBlock, ref ReadoutScrollViewer, ref ReadoutBlock);
         }
@@ -43,5 +43,9 @@ namespace WinGit
         private void IgnoredFilesCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.showIgnored = false; GM.GitStatus(repoDirText.Text); }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) { if (e.Key == Key.Return || e.Key == Key.Enter) GM.GitStatus(repoDirText.Text); }
         private void CommitButton(object sender, RoutedEventArgs e) { GM.GitCommit(CommitMessageText.Text, repoDirText.Text); }
+        private void OpenCMDButton(object sender, RoutedEventArgs e) { GM.OpenCMD(repoDirText.Text); }
+        private void GitInitButton(object sender, RoutedEventArgs e) { GM.GitInit(repoDirText.Text); }
+        private void AddOriginButton(object sender, RoutedEventArgs e) { GM.RemoteAddOrigin(WebOriginTextBox.Text, repoDirText.Text); }
+        private void GitPushButton(object sender, RoutedEventArgs e) { GM.GitPush(repoDirText.Text); }
     }
 }

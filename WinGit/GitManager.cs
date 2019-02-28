@@ -22,7 +22,7 @@ namespace WinGit
             showIgnored = false;
         }
 
-        public void InputArgs(string newArgs, string repoDir)
+        public string InputArgs(string newArgs, string repoDir)
         {
             Process newProcess = new Process();
             if (Directory.Exists(repoDir))
@@ -35,50 +35,27 @@ namespace WinGit
                 newProcess.StartInfo.CreateNoWindow = true;
                 newProcess.Start();
                 string output = newProcess.StandardOutput.ReadToEnd();
-                if (newArgs.Contains("git status")) ParseStatus(output);
+                return output;
             }
             else
             {
                 PrintMessage("Error: Repository directory not found.");
                 fileList.Items.Clear();
+                return string.Empty;
             }
         }
 
-        public void ParseStatus(string output)
+        public void OpenCMD(string repoDir)
         {
-            string[] fileNames = output.Split(new[] { "\n" }, StringSplitOptions.None);
-            fileList.Items.Clear();
-            for (int i = 0; i < fileNames.Length - 1; i++) //Iterate through strings returned from git status
-            //"--porcelain" adds extra blank line at end, hence arraySize-1
+            Process newProcess = new Process();
+            if (Directory.Exists(repoDir))
             {
-                ListBoxItem newItem = new ListBoxItem(); //Initialize a new ListBoxItem
-                string data = fileNames[i].Substring(3);
-                data = data.Replace("\"", string.Empty);
-                newItem.Content = data; //Set the ListBoxItem equal to the filename only
-                string trackInd = fileNames[i].Substring(0, 2); //Get first 3 chars (tracking index)
-                //Untracked, added, modified, deleted, renamed, copied, unmerged (?AMDRCU)
-                if (trackInd == "??" ||
-                    trackInd == " M" ||
-                    trackInd == " D" ||
-                    trackInd == " R" ||
-                    trackInd == " C" ||
-                    trackInd == " U") newItem.Foreground = Brushes.DarkRed;
-                else if (trackInd == "AA" ||
-                    trackInd == "MM" ||
-                    trackInd == "DD" ||
-                    trackInd == "RR" ||
-                    trackInd == "CC" ||
-                    trackInd == "UU" ||
-                    trackInd == "A " ||
-                    trackInd == "M " ||
-                    trackInd == "D " ||
-                    trackInd == "R " ||
-                    trackInd == "C " ||
-                    trackInd == "U ") newItem.Foreground = Brushes.Green;
-                else if (trackInd == "!!") newItem.Foreground = Brushes.DarkGray; //Ignored
-                else newItem.Foreground = Brushes.Black;
-                fileList.Items.Add(newItem); //The first 3 characters are the tracking indicator
+                newProcess.StartInfo.WorkingDirectory = repoDir;
+                newProcess.StartInfo.FileName = "cmd.exe";
+                newProcess.Start();
             }
+            else PrintMessage("Error: Repository directory not found.");
+
         }
 
         public void PrintMessage(string message)
@@ -88,10 +65,63 @@ namespace WinGit
         }
 
         //Git Functions
+
+        public void GitInit(string repoDir)
+        {
+            InputArgs("git init", repoDir);
+            PrintMessage("Initialized git repository at the specified directory.");
+        }
+
         public void GitStatus(string repoDir)
         {
-            if (!showIgnored) InputArgs("git status --porcelain", repoDir);
-            else InputArgs("git status --porcelain --ignored", repoDir);
+            string[] stagedFileList = InputArgs("git diff --name-only --cached", repoDir).Split(new[] { "\n" }, StringSplitOptions.None);
+            string[] unstagedFileList = InputArgs("git diff --name-only", repoDir).Split(new[] { "\n" }, StringSplitOptions.None);
+            string[] allFiles = InputArgs("git status --porcelain --ignored", repoDir).Split(new[] { "\n" }, StringSplitOptions.None);
+            fileList.Items.Clear(); //Clear the ListBox.
+
+            if(stagedFileList.Length == 0 && unstagedFileList.Length == 0)
+            {
+                PrintMessage("No files were changed in this repository.");
+                return;
+            }
+
+            //git adds new line after last file listed, therefore a blank string
+            for (int i = 0; i < stagedFileList.Length - 1; i++) //Iterate through the files added to the commit
+            {
+                ListBoxItem newItem = new ListBoxItem(); //Initialize a new ListBoxItem
+                newItem.Foreground = Brushes.Green; //Set the color
+                newItem.Content = stagedFileList[i]; //Set the ListBoxItem equal to the filename
+                fileList.Items.Add(newItem); //Add the item to the ListBox
+            }
+            //git adds new line after last file listed, therefore a blank string
+            for (int i = 0; i < unstagedFileList.Length - 1; i++) //Iterate through the files NOT added to commit
+            {
+                ListBoxItem newItem = new ListBoxItem(); //Initialize a new ListBoxItem
+                newItem.Foreground = Brushes.DarkRed; //Set the color
+                newItem.Content = unstagedFileList[i]; //Set the ListBoxItem equal to the filename
+                fileList.Items.Add(newItem); //Add the item to the ListBox
+            }
+            for (int i = 0; i < allFiles.Length - 1; i++) //git adds new line after last file listed, therefore a blank string
+            {
+                if (allFiles[i].Substring(0, 2).Contains("??"))
+                {
+                    allFiles[i] = allFiles[i].Substring(3);
+                    allFiles[i].Replace("\"", string.Empty); //Remove the quotations (used for nested files, difficult to parse)
+                    ListBoxItem newItem = new ListBoxItem(); //Initialize a new ListBoxItem
+                    newItem.Foreground = Brushes.DarkRed; //Set the color
+                    newItem.Content = allFiles[i]; //Set the ListBoxItem equal to the filename
+                    fileList.Items.Add(newItem); //Add the item to the ListBox
+                }
+                if (showIgnored && allFiles[i].Substring(0, 2).Contains("!!"))
+                {
+                    allFiles[i] = allFiles[i].Substring(3);
+                    allFiles[i].Replace("\"", string.Empty); //Remove the quotations (used for nested files, difficult to parse)
+                    ListBoxItem newItem = new ListBoxItem(); //Initialize a new ListBoxItem
+                    newItem.Foreground = Brushes.DarkSlateGray; //Set the color
+                    newItem.Content = allFiles[i]; //Set the ListBoxItem equal to the filename
+                    fileList.Items.Add(newItem); //Add the item to the ListBox
+                }
+            }
         }
 
         public void AddFileToCommit(string repoDir)
@@ -100,7 +130,7 @@ namespace WinGit
             try
             {
                 itemContent = ((ListBoxItem)fileList.SelectedItem).Content.ToString();
-                InputArgs(@"git add """ + itemContent + @"""", repoDir);
+                InputArgs("git add \"" + itemContent + "\"", repoDir);
                 PrintMessage("\"" + itemContent + "\" staged for commit.");
             }
             catch (NullReferenceException e)
@@ -113,6 +143,7 @@ namespace WinGit
         public void AddAllFiles(string repoDir)
         {
             InputArgs("git add .", repoDir);
+            PrintMessage("Staged all eligible files for commit.");
             GitStatus(repoDir);
         }
 
@@ -122,7 +153,7 @@ namespace WinGit
             try
             {
                 itemContent = ((ListBoxItem)fileList.SelectedItem).Content.ToString();
-                InputArgs(@"git reset HEAD -- """ + itemContent + @"""", repoDir);
+                InputArgs("git reset HEAD -- \"" + itemContent + "\"", repoDir);
                 PrintMessage("\"" + itemContent + "\" removed from staging.");
             }
             catch (NullReferenceException e)
@@ -135,16 +166,33 @@ namespace WinGit
         public void RemoveAllFiles(string repoDir)
         {
             InputArgs("git reset HEAD -- .", repoDir);
+            PrintMessage("Removed all files from staging.");
             GitStatus(repoDir);
         }
 
         public void GitCommit(string commitMessage, string repoDir)
         {
-            if(commitMessage.Contains("\""))
+            if (commitMessage.Contains("\""))
             {
                 PrintMessage("Error: Invalid character(s) in commit message.");
             }
-            else InputArgs(@"git commit -m """ + commitMessage + @"""", repoDir);
+            else
+            {
+                InputArgs(@"git commit -m """ + commitMessage + @"""", repoDir);
+                PrintMessage("Committed to repository with message \"" + commitMessage + "\".");
+            }
+        }
+
+        public void GitPush(string repoDir)
+        {
+                InputArgs("git push -u origin master", repoDir);
+                PrintMessage("Pushed to git repository successfully.");
+        }
+
+        public void RemoteAddOrigin(string link, string repoDir)
+        {
+            InputArgs("git remote add origin https://github.com/" + link, repoDir);
+            PrintMessage("Added origin at https://github.com/" + link);
         }
     }
 }
