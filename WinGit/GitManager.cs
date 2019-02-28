@@ -191,19 +191,22 @@ namespace WinGit
             else PrintMessage(InputArgs("git push -u origin master", repoDir));
         }
 
-        public void GitPull(string repoDir)
+        public void GitPull(string repoDir, string link)
         {
-            PrintMessage(InputArgs("git pull origin master", repoDir));
+            PrintMessage(InputArgs("git pull " + "https://github.com/" + link, repoDir));
         }
 
         public void RemoteAddOrigin(string link, string repoDir)
         {
-            if(link == string.Empty)
+            if (link == string.Empty)
             {
                 PrintMessage("No web address entered.");
             }
-            InputArgs("git remote add origin https://github.com/" + link, repoDir);
-            PrintMessage("Added origin at https://github.com/" + link);
+            else
+            {
+                InputArgs("git remote add origin https://github.com/" + link, repoDir);
+                PrintMessage("Added origin at https://github.com/" + link);
+            }
         }
     }
 }

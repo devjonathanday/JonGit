@@ -22,7 +22,7 @@
             </Button.Background>
         </Button>
         <TextBox x:Name="CommitMessageText" HorizontalAlignment="Left" Height="22" Margin="10,404,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423" FontFamily="Lucida Console"/>
-        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="23" Margin="193,15,0,0" TextWrapping="Wrap" Text="C:\Program Files\Git\git-cmd.exe" VerticalAlignment="Top" Width="334" KeyDown="OnKeyDownHandler" FontFamily="Lucida Console"/>
+        <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="23" Margin="193,15,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" Width="334" KeyDown="OnKeyDownHandler" FontFamily="Lucida Console"/>
         <TextBlock Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="51" HorizontalAlignment="Left" Width="84" FontFamily="Lucida Console"><Run/><LineBreak/><Run Text="Repository location:"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="10,90,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154" FontFamily="Lucida Console"/>
         <Button Content="Refresh" HorizontalAlignment="Left" Margin="333,90,0,0" VerticalAlignment="Top" Width="100" Click="GitStatusButton" Foreground="White" FontFamily="Lucida Console">
@@ -42,7 +42,7 @@
             </ListBox.Background>
         </ListBox>
         <CheckBox x:Name="IgnoredFilesCheckBox" Content="Show ignored files" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="279" Foreground="White" Checked="IgnoredFilesCheckBox_Checked" Unchecked="IgnoredFilesCheckBox_Unchecked" FontFamily="Lucida Console"/>
-        <Button Content="Push" HorizontalAlignment="Left" Margin="344,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitPushButton">
+        <Button Content="Push" HorizontalAlignment="Left" Margin="344,460,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitPushButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -102,7 +102,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="Initialize" HorizontalAlignment="Left" Margin="0,45,0,0" VerticalAlignment="Top" Width="96" Click="GitInitButton" Foreground="White" FontFamily="Lucida Console">
+        <Button Content="Initialize" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="96" Click="GitInitButton" Foreground="White" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -110,8 +110,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="WebOriginTextBox" HorizontalAlignment="Left" Height="22" Margin="242,461,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Console"/>
-        <Button Content="Add Origin" HorizontalAlignment="Left" Margin="10,461,0,0" VerticalAlignment="Top" Width="84" Height="22" Foreground="White" FontFamily="Lucida Console" Click="AddOriginButton">
+        <TextBox x:Name="WebOriginTextBox" HorizontalAlignment="Left" Height="22" Margin="242,431,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Console"/>
+        <Button Content="Add Origin" HorizontalAlignment="Left" Margin="10,431,0,0" VerticalAlignment="Top" Width="84" Height="22" Foreground="White" FontFamily="Lucida Console" Click="AddOriginButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -119,8 +119,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="99,466,0,0" TextWrapping="Wrap" Text="https://github.com/" VerticalAlignment="Top" Foreground="White" Width="141" FontFamily="Lucida Console"/>
-        <Button Content="Pull" HorizontalAlignment="Left" Margin="438,431,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitPullButton">
+        <TextBlock HorizontalAlignment="Left" Margin="99,436,0,0" TextWrapping="Wrap" Text="https://github.com/" VerticalAlignment="Top" Foreground="White" Width="141" FontFamily="Lucida Console"/>
+        <Button Content="Pull" HorizontalAlignment="Left" Margin="438,460,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitPullButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -128,7 +128,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <CheckBox x:Name="SetUpstreamCheckBox" Content="Set upstream branch" HorizontalAlignment="Left" Margin="183,436,0,0" VerticalAlignment="Top" Width="156" Foreground="White" Unchecked="SetUpstreamCheckBox_Unchecked" FontFamily="Lucida Console" Checked="SetUpstreamCheckBox_Checked"/>
+        <CheckBox x:Name="SetUpstreamCheckBox" Content="Set upstream branch" HorizontalAlignment="Left" Margin="183,465,0,0" VerticalAlignment="Top" Width="156" Foreground="White" Unchecked="SetUpstreamCheckBox_Unchecked" FontFamily="Lucida Console" Checked="SetUpstreamCheckBox_Checked"/>
         <TextBlock Margin="140,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="16" HorizontalAlignment="Left" Width="53" FontFamily="Lucida Console" Text="Recent:"/>
         <ComboBox x:Name="RecentRepoDirsList" HorizontalAlignment="Left" Margin="193,43,0,0" VerticalAlignment="Top" Width="334" SelectionChanged="UpdateRepoDir"/>
 

@@ -63,7 +63,7 @@ namespace WinGit
             folderBrowser.ShowDialog();
             repoDirText.Text = folderBrowser.SelectedPath;
         }
-        private void GitPullButton(object sender, RoutedEventArgs e) { GM.GitPull(repoDirText.Text); }
+        private void GitPullButton(object sender, RoutedEventArgs e) { GM.GitPull(repoDirText.Text, WebOriginTextBox.Text); }
         private void SetUpstreamCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.setUpstream = false; }
         private void SetUpstreamCheckBox_Checked(object sender, RoutedEventArgs e) { GM.setUpstream = false; }
         private void UpdateRepoDir(object sender, System.Windows.Controls.SelectionChangedEventArgs e) { repoDirText.Text = RecentRepoDirsList.SelectedItem.ToString(); }
