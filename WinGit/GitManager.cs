@@ -12,6 +12,7 @@ namespace WinGit
         public ScrollViewer scrollBar;
         public TextBlock readOut;
         public bool showIgnored;
+        public string branch = "master";
 
         public GitManager() { } //Default constructor, unused
         public GitManager(ref ListBox _fileList, ref ScrollViewer _scrollBar, ref TextBlock _readOut)
@@ -188,8 +189,17 @@ namespace WinGit
                 //PrintMessage("Pushed to git repository successfully.");
         }
 
+        public void GitPull(string repoDir)
+        {
+            PrintMessage(InputArgs("git pull origin master", repoDir));
+        }
+
         public void RemoteAddOrigin(string link, string repoDir)
         {
+            if(link == string.Empty)
+            {
+                PrintMessage("No web address entered.");
+            }
             InputArgs("git remote add origin https://github.com/" + link, repoDir);
             PrintMessage("Added origin at https://github.com/" + link);
         }

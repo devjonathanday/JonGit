@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.IO;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+//using System.Windows.Controls;
+//using System.Windows.Data;
+//using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+//using System.Windows.Media;
+//using System.Windows.Media.Imaging;
+//using System.Windows.Navigation;
+//using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace WinGit
 {
@@ -41,11 +42,18 @@ namespace WinGit
         private void RemoveAllButton(object sender, RoutedEventArgs e) { GM.RemoveAllFiles(repoDirText.Text); }
         private void IgnoredFilesCheckBox_Checked(object sender, RoutedEventArgs e) { GM.showIgnored = true; GM.GitStatus(repoDirText.Text); }
         private void IgnoredFilesCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.showIgnored = false; GM.GitStatus(repoDirText.Text); }
-        private void OnKeyDownHandler(object sender, KeyEventArgs e) { if (e.Key == Key.Return || e.Key == Key.Enter) GM.GitStatus(repoDirText.Text); }
+        private void OnKeyDownHandler(object sender, System.Windows.Input.KeyEventArgs e) { if (e.Key == Key.Return || e.Key == Key.Enter) GM.GitStatus(repoDirText.Text); }
         private void CommitButton(object sender, RoutedEventArgs e) { GM.GitCommit(CommitMessageText.Text, repoDirText.Text); }
         private void OpenCMDButton(object sender, RoutedEventArgs e) { GM.OpenCMD(repoDirText.Text); }
         private void GitInitButton(object sender, RoutedEventArgs e) { GM.GitInit(repoDirText.Text); }
         private void AddOriginButton(object sender, RoutedEventArgs e) { GM.RemoteAddOrigin(WebOriginTextBox.Text, repoDirText.Text); }
         private void GitPushButton(object sender, RoutedEventArgs e) { GM.GitPush(repoDirText.Text); }
+        private void BrowseForRepoDir(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.ShowDialog();
+            repoDirText.Text = folderBrowser.SelectedPath;
+        }
+        private void GitPullButton(object sender, RoutedEventArgs e) { GM.GitPull(repoDirText.Text); }
     }
 }
