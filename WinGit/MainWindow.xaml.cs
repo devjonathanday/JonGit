@@ -1,6 +1,6 @@
 ﻿//using System;
 //using System.Collections.Generic;
-//using System.IO;
+using System.IO;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
@@ -25,13 +25,18 @@ namespace WinGit
     {
         public Process commandWindow = new Process();
         public GitManager GM = new GitManager();
+        public FileStream reposFS = File.Open(Directory.GetCurrentDirectory() + "\\recentRepos.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); //Creates the text file to be used
+        
+        public string[] recentRepos;
 
         public MainWindow()
         {
             InitializeComponent();
             //ResizeMode = ResizeMode.NoResize;
-            repoDirText.Text = System.IO.Directory.GetCurrentDirectory();
             GM = new GitManager(ref OutputBlock, ref ReadoutScrollViewer, ref ReadoutBlock);
+            reposFS.Close();
+            recentRepos = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\recentRepos.txt"); //Reads the lines from the text file
+            for(int i = 0; i < recentRepos.Length; i++) RecentRepoDirsList.Items.Add(recentRepos[i]);
         }
 
         //WPF Buttons
@@ -47,7 +52,11 @@ namespace WinGit
         private void OpenCMDButton(object sender, RoutedEventArgs e) { GM.OpenCMD(repoDirText.Text); }
         private void GitInitButton(object sender, RoutedEventArgs e) { GM.GitInit(repoDirText.Text); }
         private void AddOriginButton(object sender, RoutedEventArgs e) { GM.RemoteAddOrigin(WebOriginTextBox.Text, repoDirText.Text); }
-        private void GitPushButton(object sender, RoutedEventArgs e) { GM.GitPush(repoDirText.Text); }
+        private void GitPushButton(object sender, RoutedEventArgs e)
+        {
+            GM.GitPush(repoDirText.Text);
+            RecentRepoDirsList.Items.Add(repoDirText.Text);
+        }
         private void BrowseForRepoDir(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
@@ -55,5 +64,8 @@ namespace WinGit
             repoDirText.Text = folderBrowser.SelectedPath;
         }
         private void GitPullButton(object sender, RoutedEventArgs e) { GM.GitPull(repoDirText.Text); }
+        private void SetUpstreamCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.setUpstream = false; }
+        private void SetUpstreamCheckBox_Checked(object sender, RoutedEventArgs e) { GM.setUpstream = false; }
+        private void UpdateRepoDir(object sender, System.Windows.Controls.SelectionChangedEventArgs e) { repoDirText.Text = RecentRepoDirsList.SelectedItem.ToString(); }
     }
 }

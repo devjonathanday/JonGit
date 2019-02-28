@@ -12,6 +12,7 @@ namespace WinGit
         public ScrollViewer scrollBar;
         public TextBlock readOut;
         public bool showIgnored;
+        public bool setUpstream;
         public string branch = "master";
 
         public GitManager() { } //Default constructor, unused
@@ -21,6 +22,7 @@ namespace WinGit
             scrollBar = _scrollBar;
             readOut = _readOut;
             showIgnored = false;
+            setUpstream = false;
         }
 
         public string InputArgs(string newArgs, string repoDir)
@@ -185,8 +187,8 @@ namespace WinGit
 
         public void GitPush(string repoDir)
         {
-                PrintMessage(InputArgs("git push -u origin master", repoDir));
-                //PrintMessage("Pushed to git repository successfully.");
+            if(setUpstream) PrintMessage(InputArgs("git push --set-upstream origin master", repoDir));
+            else PrintMessage(InputArgs("git push -u origin master", repoDir));
         }
 
         public void GitPull(string repoDir)
