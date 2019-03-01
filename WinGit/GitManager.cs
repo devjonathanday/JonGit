@@ -186,8 +186,6 @@ namespace WinGit
         {
             if(setUpstream) PrintMessage(InputArgs("git push --set-upstream origin master", repoDir));
             else PrintMessage(InputArgs("git push -u origin master", repoDir));
-
-            GitStatus(repoDir);
         }
 
         public void GitPull(string repoDir, string link)
