@@ -104,7 +104,11 @@ namespace WinGit
         {
             string[] recentRepos = File.ReadAllLines(recentReposFileName); //Read the repo names and put them into a string array.
             RecentRepoDirsList.Items.Clear();
-            for (int i = 0; i < recentRepos.Length; i++) RecentRepoDirsList.Items.Add(recentRepos[i]); //Add the repo names into the combo box.
+            for (int i = 0; i < recentRepos.Length; i++)
+            {
+                if(recentRepos[i] != string.Empty)
+                RecentRepoDirsList.Items.Add(recentRepos[i]); //Add the repo names into the combo box.
+            }
         }
 
         private void LoginButton(object sender, RoutedEventArgs e)

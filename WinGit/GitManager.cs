@@ -81,12 +81,6 @@ namespace WinGit
             string[] allFiles = InputArgs("git status --porcelain --ignored", repoDir).Split(new[] { "\n" }, StringSplitOptions.None);
             fileList.Items.Clear(); //Clear the ListBox.
 
-            if(stagedFileList.Length == 0 && unstagedFileList.Length == 0)
-            {
-                PrintMessage("No files were changed in this repository.");
-                return;
-            }
-
             //git adds new line after last file listed, therefore a blank string
             for (int i = 0; i < stagedFileList.Length - 1; i++) //Iterate through the files added to the commit
             {
@@ -124,6 +118,7 @@ namespace WinGit
                     fileList.Items.Add(newItem); //Add the item to the ListBox
                 }
             }
+            if (fileList.Items.Count == 0) { PrintMessage("No files were changed in this repository."); }
         }
 
         public void AddFileToCommit(string repoDir)
