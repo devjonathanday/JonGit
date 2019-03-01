@@ -130,7 +130,7 @@
         </Button>
         <CheckBox x:Name="SetUpstreamCheckBox" Content="Set upstream branch" HorizontalAlignment="Left" Margin="277,418,0,0" VerticalAlignment="Top" Width="156" Foreground="White" Unchecked="SetUpstreamCheckBox_Unchecked" FontFamily="Lucida Console" Checked="SetUpstreamCheckBox_Checked"/>
         <TextBlock Margin="140,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="16" HorizontalAlignment="Left" Width="53" FontFamily="Lucida Console" Text="Recent:"/>
-        <ComboBox x:Name="RecentRepoDirsList" HorizontalAlignment="Left" Margin="193,40,0,0" VerticalAlignment="Top" Width="334" SelectionChanged="UpdateRepoDir" GotFocus="FocusedRecentsBox"/>
+        <ComboBox x:Name="RecentRepoDirsList" HorizontalAlignment="Left" Margin="193,40,0,0" VerticalAlignment="Top" Width="334" SelectionChanged="UpdateRepoDir"/>
 
     </Grid>
 </Window>

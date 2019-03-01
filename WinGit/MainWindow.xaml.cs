@@ -32,8 +32,12 @@ namespace WinGit
             InitializeComponent();
             //ResizeMode = ResizeMode.NoResize;
             GM = new GitManager(ref OutputBlock, ref ReadoutScrollViewer, ref ReadoutBlock);
-            if (!File.Exists(recentReposFileName)) File.Create(recentReposFileName); //Creates the recent repo text file if it doesn't exist.
-            //UpdateRecentRepos();
+            if (!File.Exists(recentReposFileName))
+            {
+                FileStream temp = File.Create(recentReposFileName); //Creates the recent repo text file if it doesn't exist.
+                temp.Close();
+            }
+            UpdateRecentRepos();
         }
 
         //WPF Buttons
@@ -102,8 +106,6 @@ namespace WinGit
             RecentRepoDirsList.Items.Clear();
             for (int i = 0; i < recentRepos.Length; i++) RecentRepoDirsList.Items.Add(recentRepos[i]); //Add the repo names into the combo box.
         }
-
-        private void FocusedRecentsBox(object sender, RoutedEventArgs e) { UpdateRecentRepos(); }
 
         private void LoginButton(object sender, RoutedEventArgs e)
         {
