@@ -25,6 +25,7 @@ namespace WinGit
     {
         public Process commandWindow = new Process();
         public GitManager GM = new GitManager();
+
         string recentReposFileName = (Directory.GetCurrentDirectory() + "\\recentRepos.txt"); //Filename for list of recent repos.
 
         public MainWindow()
