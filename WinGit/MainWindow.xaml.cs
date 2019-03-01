@@ -44,7 +44,7 @@ namespace WinGit
 
         private void GitStatusButton(object sender, RoutedEventArgs e)
         {
-            GM.GitStatus(repoDirText.Text);
+            GM.GitStatus(repoDirText.Text, true);
 
             //Update recent repositories
             string[] repoArr = File.ReadAllLines(recentReposFileName); //Read repo names from file, put into an array
@@ -69,11 +69,11 @@ namespace WinGit
 
         private void RemoveAllButton(object sender, RoutedEventArgs e) { GM.RemoveAllFiles(repoDirText.Text); }
 
-        private void IgnoredFilesCheckBox_Checked(object sender, RoutedEventArgs e) { GM.showIgnored = true; GM.GitStatus(repoDirText.Text); }
+        private void IgnoredFilesCheckBox_Checked(object sender, RoutedEventArgs e) { GM.showIgnored = true; GM.GitStatus(repoDirText.Text, true); }
 
-        private void IgnoredFilesCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.showIgnored = false; GM.GitStatus(repoDirText.Text); }
+        private void IgnoredFilesCheckBox_Unchecked(object sender, RoutedEventArgs e) { GM.showIgnored = false; GM.GitStatus(repoDirText.Text, true); }
 
-        private void OnKeyDownHandler(object sender, System.Windows.Input.KeyEventArgs e) { if (e.Key == Key.Return || e.Key == Key.Enter) GM.GitStatus(repoDirText.Text); }
+        private void OnKeyDownHandler(object sender, System.Windows.Input.KeyEventArgs e) { if (e.Key == Key.Return || e.Key == Key.Enter) GM.GitStatus(repoDirText.Text, true); }
 
         private void CommitButton(object sender, RoutedEventArgs e) { GM.GitCommit(CommitMessageText.Text, repoDirText.Text); }
 
@@ -109,11 +109,6 @@ namespace WinGit
                 if(recentRepos[i] != string.Empty)
                 RecentRepoDirsList.Items.Add(recentRepos[i]); //Add the repo names into the combo box.
             }
-        }
-
-        private void LoginButton(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

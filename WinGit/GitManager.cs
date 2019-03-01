@@ -75,7 +75,7 @@ namespace WinGit
             PrintMessage(InputArgs("git init", repoDir));
         }
 
-        public void GitStatus(string repoDir)
+        public void GitStatus(string repoDir, bool checkEmpty)
         {
             string[] stagedFileList = InputArgs("git diff --name-only --cached", repoDir).Split(new[] { "\n" }, StringSplitOptions.None);
             string[] unstagedFileList = InputArgs("git diff --name-only", repoDir).Split(new[] { "\n" }, StringSplitOptions.None);
@@ -119,7 +119,7 @@ namespace WinGit
                     fileList.Items.Add(newItem); //Add the item to the ListBox
                 }
             }
-            if (fileList.Items.Count == 0) { PrintMessage("No files were changed in this repository."); }
+            if (checkEmpty && fileList.Items.Count == 0) { PrintMessage("No files were changed in this repository."); }
         }
 
         public void AddFileToCommit(string repoDir)
@@ -135,14 +135,14 @@ namespace WinGit
             {
                 PrintMessage("No file selected.");
             }
-            GitStatus(repoDir);
+            GitStatus(repoDir, false);
         }
 
         public void AddAllFiles(string repoDir)
         {
             InputArgs("git add .", repoDir);
             PrintMessage("Staged all eligible files for commit.");
-            GitStatus(repoDir);
+            GitStatus(repoDir, false);
         }
 
         public void RemoveFileFromCommit(string repoDir)
@@ -158,14 +158,14 @@ namespace WinGit
             {
                 PrintMessage("No file selected.");
             }
-            GitStatus(repoDir);
+            GitStatus(repoDir, false);
         }
 
         public void RemoveAllFiles(string repoDir)
         {
             InputArgs("git reset HEAD -- .", repoDir);
             PrintMessage("Removed all files from staging.");
-            GitStatus(repoDir);
+            GitStatus(repoDir, false);
         }
 
         public void GitCommit(string commitMessage, string repoDir)
@@ -179,7 +179,7 @@ namespace WinGit
                 InputArgs(@"git commit -m """ + commitMessage + @"""", repoDir);
                 PrintMessage("Committed to repository with message \"" + commitMessage + "\".");
             }
-            GitStatus(repoDir);
+            GitStatus(repoDir, false);
         }
 
         public void GitPush(string repoDir)
@@ -195,7 +195,7 @@ namespace WinGit
                 PrintMessage("Enter the web address for your repository.");
             }
             PrintMessage(InputArgs("git pull " + "https://github.com/" + link, repoDir));
-            GitStatus(repoDir);
+            GitStatus(repoDir, false);
         }
 
         public void RemoteAddOrigin(string link, string repoDir)
