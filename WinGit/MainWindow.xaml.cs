@@ -83,7 +83,7 @@ namespace WinGit
 
         private void AddOriginButton(object sender, RoutedEventArgs e) { GM.RemoteAddOrigin(WebOriginTextBox.Text, repoDirText.Text); }
 
-        private void GitPushButton(object sender, RoutedEventArgs e) { GM.GitPush(repoDirText.Text); }
+        private void GitPushButton(object sender, RoutedEventArgs e) { GM.PrintMessage("Working..."); GM.GitPush(repoDirText.Text); }
 
         private void BrowseForRepoDir(object sender, RoutedEventArgs e)
         {
