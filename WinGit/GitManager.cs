@@ -38,6 +38,7 @@ namespace WinGit
                 newProcess.StartInfo.CreateNoWindow = true;
                 newProcess.Start();
                 string output = newProcess.StandardOutput.ReadToEnd();
+                if (output.Contains("fatal: ")) PrintMessage(output);
                 return output;
             }
             else
@@ -178,12 +179,15 @@ namespace WinGit
                 InputArgs(@"git commit -m """ + commitMessage + @"""", repoDir);
                 PrintMessage("Committed to repository with message \"" + commitMessage + "\".");
             }
+            GitStatus(repoDir);
         }
 
         public void GitPush(string repoDir)
         {
             if(setUpstream) PrintMessage(InputArgs("git push --set-upstream origin master", repoDir));
             else PrintMessage(InputArgs("git push -u origin master", repoDir));
+
+            GitStatus(repoDir);
         }
 
         public void GitPull(string repoDir, string link)
@@ -193,6 +197,7 @@ namespace WinGit
                 PrintMessage("Enter the web address for your repository.");
             }
             PrintMessage(InputArgs("git pull " + "https://github.com/" + link, repoDir));
+            GitStatus(repoDir);
         }
 
         public void RemoteAddOrigin(string link, string repoDir)
