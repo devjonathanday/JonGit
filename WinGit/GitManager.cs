@@ -194,8 +194,23 @@ namespace WinGit
             {
                 PrintMessage("Enter the web address for your repository.");
             }
-            PrintMessage(InputArgs("git pull " + "https://github.com/" + link, repoDir));
+            PrintMessage(InputArgs("git pull " + link, repoDir));
             GitStatus(repoDir, false);
+        }
+
+        public void GitClone(string repoDir, string link)
+        {
+            if (link == string.Empty)
+            {
+                PrintMessage("No web address entered.");
+            }
+            else
+            {
+                PrintMessage(InputArgs("git init", repoDir));
+                PrintMessage(InputArgs("git clone " + link, repoDir));
+                GitStatus(repoDir, false);
+                PrintMessage("Cloned repository from \"" + link + "\" into \"" + repoDir + "\".");
+            }
         }
 
         public void RemoteAddOrigin(string link, string repoDir)
@@ -206,8 +221,8 @@ namespace WinGit
             }
             else
             {
-                InputArgs("git remote add origin https://github.com/" + link, repoDir);
-                PrintMessage("Added origin at https://github.com/" + link);
+                InputArgs("git remote add origin " + link, repoDir);
+                PrintMessage("Added origin at " + link);
             }
         }
     }

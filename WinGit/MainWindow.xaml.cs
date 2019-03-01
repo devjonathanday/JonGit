@@ -110,5 +110,7 @@ namespace WinGit
                 RecentRepoDirsList.Items.Add(recentRepos[i]); //Add the repo names into the combo box.
             }
         }
+
+        private void GitCloneButton(object sender, RoutedEventArgs e) { GM.GitClone(repoDirText.Text, WebOriginTextBox.Text); }
     }
 }

@@ -110,8 +110,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="WebOriginTextBox" HorizontalAlignment="Left" Height="22" Margin="148,436,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Lucida Console"/>
-        <Button Content="Add Origin" HorizontalAlignment="Left" Margin="148,463,0,0" VerticalAlignment="Top" Width="84" Height="22" Foreground="White" FontFamily="Lucida Console" Click="AddOriginButton">
+        <TextBox x:Name="WebOriginTextBox" HorizontalAlignment="Left" Height="22" Margin="111,436,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" FontFamily="Lucida Console" Text="https://github.com/"/>
+        <Button Content="Add Origin" HorizontalAlignment="Left" Margin="10,436,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="AddOriginButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF3C3C3C" Offset="0"/>
@@ -119,7 +119,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="2,441,0,0" TextWrapping="Wrap" Text="https://github.com/" VerticalAlignment="Top" Foreground="White" Width="141" FontFamily="Lucida Console"/>
         <Button Content="Pull" HorizontalAlignment="Left" Margin="438,436,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitPullButton">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -131,6 +130,14 @@
         <CheckBox x:Name="SetUpstreamCheckBox" Content="Set upstream branch" HorizontalAlignment="Left" Margin="277,418,0,0" VerticalAlignment="Top" Width="156" Foreground="White" Unchecked="SetUpstreamCheckBox_Unchecked" FontFamily="Lucida Console" Checked="SetUpstreamCheckBox_Checked"/>
         <TextBlock Margin="140,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="16" HorizontalAlignment="Left" Width="53" FontFamily="Lucida Console" Text="Recent:"/>
         <ComboBox x:Name="RecentRepoDirsList" HorizontalAlignment="Left" Margin="193,40,0,0" VerticalAlignment="Top" Width="334" SelectionChanged="UpdateRepoDir"/>
+        <Button Content="Clone" HorizontalAlignment="Left" Margin="10,463,0,0" VerticalAlignment="Top" Width="89" Height="22" Foreground="White" FontFamily="Lucida Console" Click="GitCloneButton">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FF3C3C3C" Offset="0"/>
+                    <GradientStop Color="#FF8B8B8B" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
