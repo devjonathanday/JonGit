@@ -193,6 +193,10 @@ namespace WinGit
 
         public void GitPull(string repoDir, string link)
         {
+            if(link == string.Empty)
+            {
+                PrintMessage("Enter the web address for your repository.");
+            }
             PrintMessage(InputArgs("git pull " + "https://github.com/" + link, repoDir));
         }
 
