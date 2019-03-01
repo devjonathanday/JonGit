@@ -24,7 +24,7 @@
         <TextBox x:Name="CommitMessageText" HorizontalAlignment="Left" Height="22" Margin="10,404,0,0" TextWrapping="Wrap" Text="Commit Message" VerticalAlignment="Top" Width="423" FontFamily="Lucida Console"/>
         <TextBox x:Name="repoDirText" HorizontalAlignment="Left" Height="23" Margin="193,15,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" Width="334" KeyDown="OnKeyDownHandler" FontFamily="Lucida Console"/>
         <TextBlock Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="51" HorizontalAlignment="Left" Width="84" FontFamily="Lucida Console"><Run/><LineBreak/><Run Text="Repository location:"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="10,90,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154" FontFamily="Lucida Console"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,100,0,0" TextWrapping="Wrap" Text="Repository Status:" VerticalAlignment="Top" Foreground="White" Width="154" FontFamily="Lucida Console"/>
         <Button Content="Refresh" HorizontalAlignment="Left" Margin="333,90,0,0" VerticalAlignment="Top" Width="100" Click="GitStatusButton" Foreground="White" FontFamily="Lucida Console">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -130,7 +130,7 @@
         </Button>
         <CheckBox x:Name="SetUpstreamCheckBox" Content="Set upstream branch" HorizontalAlignment="Left" Margin="183,465,0,0" VerticalAlignment="Top" Width="156" Foreground="White" Unchecked="SetUpstreamCheckBox_Unchecked" FontFamily="Lucida Console" Checked="SetUpstreamCheckBox_Checked"/>
         <TextBlock Margin="140,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Height="16" HorizontalAlignment="Left" Width="53" FontFamily="Lucida Console" Text="Recent:"/>
-        <ComboBox x:Name="RecentRepoDirsList" HorizontalAlignment="Left" Margin="193,43,0,0" VerticalAlignment="Top" Width="334" SelectionChanged="UpdateRepoDir"/>
+        <ComboBox x:Name="RecentRepoDirsList" HorizontalAlignment="Left" Margin="193,43,0,0" VerticalAlignment="Top" Width="334" SelectionChanged="UpdateRepoDir" GotFocus="FocusedRecentsBox"/>
 
     </Grid>
 </Window>
